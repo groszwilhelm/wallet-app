@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <ion-icon (click)="getToRoot()" ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon>
+      Add entries: <span style="color: #f53d3d">Expense</span>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="submitChanges(form.value)" #form="ngForm">
+    <ion-item>
+      <ion-label>Value</ion-label>
+      <ion-input type="number" name="value" ngModel required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <ion-input type="text" name="description" ngModel required></ion-input>
+    </ion-item>
+    <br>
+    <button ion-button block type="submit" [disabled]="!form.valid">Save changes</button>
+  </form>
+</ion-content>

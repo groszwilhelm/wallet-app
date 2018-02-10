@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Expense tracker
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- <ion-item>
+        <span style="color:  #f53d3d;">Value</span>
+        <span item-end style="color: #488aff">Description</span>
+      </ion-item> -->
+  <ion-card *ngFor="let entry of entries">
+    <button ion-item (click)="handleClick(entry)">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+            <span item-start style="font-size: 10px">{{entry.date}}</span>
+          </ion-col>
+          <ion-col col-4 *ngIf="entry.type === 'income'">
+            <span style="color: #488aff">{{entry.value}} lei</span>
+          </ion-col>
+          <ion-col col-4 *ngIf="entry.type === 'expense'">
+            <span style="color: #f53d3d">{{entry.value}} lei</span>
+          </ion-col>
+          <ion-col col-5>
+            <span item-end>{{entry.description}}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </button>
+  </ion-card>
+  <ion-fab right bottom>
+    <button ion-fab (click)="goToAddEntries()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

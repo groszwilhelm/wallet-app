@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, App } from 'ionic-angular';
+import { Store } from '@ngrx/store';
 
 import { EntriesComponent } from '../entries/entries.component';
-import { EntriesService } from '../../services/entries.service';
 import { IEntry } from '../../interfaces/entry.interface';
+import { State } from '../../app/app.module';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,19 +12,21 @@ import { IEntry } from '../../interfaces/entry.interface';
 })
 export class DashboardComponent {
   public entries: Array<IEntry> = [];
+  public state;
+  private general$;
 
-  constructor(public navCtrl: NavController, private entriesService: EntriesService) { }
-
-  ionViewWillEnter() {
-    this.entriesService.getEntries()
-      .then((entries: Array<IEntry>) => {
-        this.entries = entries;
-      });
+  constructor(public navCtrl: NavController, private store: Store<any>) {
+    this.general$ = store.select((state: State) => state.entries);
+    this.general$.subscribe((state) => {
+      this.state = state;
+      this.entries = state.entries;
+    });
   }
 
-  /**
-   * Method that
-   */
+  ionViewWillEnter() {
+
+  }
+
   public goToAddEntries(): void {
     this.navCtrl.push(EntriesComponent);
   }

@@ -7,6 +7,22 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-card>
+    <ion-row>
+      <ion-col col-4 text-center>
+        <span>Total income:</span>
+        <div style="color: #488aff" id="totalIncome">{{state.totalIncome}}</div>
+      </ion-col>
+      <ion-col col-4 text-center>
+        <span>Total expenses:</span>
+        <div style="color: #f53d3d" id="totalExpense">{{state.totalExpenses}}</div>
+      </ion-col>
+      <ion-col col-4 text-center>
+        <span>Balance:</span>
+        <div id="balance">{{state.balance}}</div>
+      </ion-col>
+    </ion-row>
+  </ion-card>
   <!-- <ion-item>
         <span style="color:  #f53d3d;">Value</span>
         <span item-end style="color: #488aff">Description</span>
@@ -15,16 +31,16 @@
     <button ion-item (click)="handleClick(entry)">
       <ion-grid>
         <ion-row>
-          <ion-col col-3>
+          <ion-col col-3 text-center>
             <span item-start style="font-size: 10px">{{entry.date}}</span>
           </ion-col>
-          <ion-col col-4 *ngIf="entry.type === 'income'">
+          <ion-col col-4 *ngIf="entry.type === 'income'" text-center>
             <span style="color: #488aff">{{entry.value}} lei</span>
           </ion-col>
-          <ion-col col-4 *ngIf="entry.type === 'expense'">
+          <ion-col col-4 *ngIf="entry.type === 'expense'" text-center>
             <span style="color: #f53d3d">{{entry.value}} lei</span>
           </ion-col>
-          <ion-col col-5>
+          <ion-col col-5 text-center>
             <span item-end>{{entry.description}}</span>
           </ion-col>
         </ion-row>
@@ -32,6 +48,6 @@
     </button>
   </ion-card>
   <ion-fab right bottom>
-    <button ion-fab (click)="goToAddEntries()"><ion-icon name="add"></ion-icon></button>
+    <button id="addEntriesBtn" ion-fab (click)="goToAddEntries()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 </ion-content>

@@ -11,13 +11,13 @@
   <form (ngSubmit)="submitChanges(form.value)" #form="ngForm">
     <ion-item>
       <ion-label>Value</ion-label>
-      <ion-input type="number" name="value" ngModel required></ion-input>
+      <ion-input id="expenseValueField" type="number" name="value" ngModel required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Description</ion-label>
-      <ion-input type="text" name="description" ngModel required></ion-input>
+      <ion-input id="expenseDescriptionField" type="text" name="description" ngModel required></ion-input>
     </ion-item>
     <br>
-    <button ion-button block type="submit" [disabled]="!form.valid">Save changes</button>
+    <button ion-button block color="danger" type="submit" [disabled]="!form.valid">Save changes</button>
   </form>
 </ion-content>

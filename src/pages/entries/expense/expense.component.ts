@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, App } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 
-import { EntriesService } from '../../../services/entries.service';
 import { IEntry } from '../../../interfaces/entry.interface';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { Expense } from '../entries.actions';
+import { DashboardNavigationComponent } from '../../dashboard/dashboard-navigation/dashboard-navigation.component';
 
 @Component({
   selector: 'app-expense',
@@ -14,7 +14,7 @@ import { Expense } from '../entries.actions';
 
 export class ExpenseComponent {
 
-  constructor(public appCtrl: App, private entriesService: EntriesService, private store: Store<any>) { }
+  constructor(public appCtrl: App, private store: Store<any>, private navCtrl: NavController) { }
 
   public submitChanges(entry: IEntry): void {
     const date = new Date();
@@ -23,11 +23,12 @@ export class ExpenseComponent {
     entry.date = formatedDate;
     entry.type = 'expense';
     this.store.dispatch(new Expense(entry));
-    this.entriesService.setEntry(entry);
     this.appCtrl.getRootNavs()[0].pop();
   }
 
   public getToRoot() {
+    // this.appCtrl.getRootNavs()[0].pop();
+    // this.appCtrl.getRootNavs()[0].pop();
     this.appCtrl.getRootNavs()[0].pop();
   }
 }

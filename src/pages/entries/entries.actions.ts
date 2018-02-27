@@ -3,6 +3,9 @@ import { IEntry } from '../../interfaces/entry.interface';
 
 export const INCOME = '[Entries] Add Income';
 export const EXPENSE = '[Entries] Add Expense';
+export const GET_ENTRIES = '[Entries] Get Entries';
+export const GET_ENTRIES_SUCCESS = '[Entries] Get Entries Success';
+export const REMOVE_ENTRIES = '[Entries] Remove Entries';
 
 export class Income implements Action {
   readonly type = INCOME;
@@ -16,4 +19,22 @@ export class Expense implements Action {
   constructor(public payload: IEntry) { }
 }
 
-export type All = Income | Expense;
+export class GetEntries implements Action {
+  readonly type = GET_ENTRIES;
+
+  constructor() { }
+}
+
+export class GetEntriesSuccess implements Action {
+  readonly type = GET_ENTRIES_SUCCESS;
+
+  constructor(public payload: Array<IEntry>) { }
+}
+
+export class RemoveEntries implements Action {
+  readonly type = REMOVE_ENTRIES;
+
+  constructor() { }
+}
+
+export type All = Income | Expense | GetEntries | GetEntriesSuccess | RemoveEntries;

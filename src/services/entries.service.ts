@@ -15,10 +15,10 @@ export class EntriesService {
   public setEntry(entry: IEntry): void {
     this.entries.push(entry);
     this.storage.set('entries', this.entries);
-    this.http.post(this.baseUrl + this.endpoint, entry)
-      .subscribe((data) => {
-        console.log(data);
-      });
+    // this.http.post(this.baseUrl + this.endpoint, entry)
+    //   .subscribe((data) => {
+    //     console.log(data);
+    //   });
   }
 
   public getEntries(): Promise<Array<IEntry>> {
@@ -27,5 +27,9 @@ export class EntriesService {
         this.entries = storedEntries === null ? [] : storedEntries;
         return this.entries.slice();
       });
+  }
+
+  public removeEntries(): Promise<any> {
+    return this.storage.clear();
   }
 }

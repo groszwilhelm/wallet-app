@@ -3,12 +3,12 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { DashboardComponent } from '../pages/dashboard/dashboard.component';
+import { DashboardNavigationComponent } from '../pages/dashboard/dashboard-navigation/dashboard-navigation.component';
 @Component({
   templateUrl: 'app.html'
 })
 export class AppComponent {
-  rootPage: any = DashboardComponent;
+  rootPage: any = DashboardNavigationComponent;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

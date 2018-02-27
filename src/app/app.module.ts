@@ -7,6 +7,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
@@ -14,6 +15,9 @@ import { EntriesModule } from '../pages/entries/entries.module';
 import { EntriesService } from '../services/entries.service';
 
 import * as fromEntries from '../pages/entries/entries.reducer';
+import { EntriesEffects } from '../pages/entries/entries.effects';
+import { DashboardNavigationComponent } from '../pages/dashboard/dashboard-navigation/dashboard-navigation.component';
+import { SettingsComponent } from '../pages/settings/settings.component';
 
 export interface State {
   entries: fromEntries.State;
@@ -26,7 +30,9 @@ const reducers = {
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    DashboardNavigationComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,12 +41,15 @@ const reducers = {
     IonicStorageModule.forRoot(),
     HttpModule,
     StoreModule.forRoot(reducers),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([EntriesEffects])
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    DashboardNavigationComponent,
+    SettingsComponent
   ],
   providers: [
     StatusBar,

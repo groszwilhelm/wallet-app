@@ -19,6 +19,27 @@ const initialState: State = {
 
 export function reducer(state = initialState, action: EntriesAction.All) {
   switch (action.type) {
+    case EntriesAction.GET_ENTRIES_SUCCESS: {
+      let entries = state.entries.slice();
+      let totalIncome = 0;
+      let totalExpenses = 0;
+      action.payload.map((entry) => {
+        if (entry.type === 'income') {
+          totalIncome = +totalIncome + +entry.value;
+        }
+        if (entry.type === 'expense') {
+          totalExpenses = +totalExpenses + +entry.value;
+        }
+      });
+      entries = action.payload;
+      return {
+        ...state,
+        entries: entries,
+        totalIncome: totalIncome,
+        totalExpenses: totalExpenses,
+        balance: (totalIncome - totalExpenses)
+      };
+    }
     case EntriesAction.INCOME: {
       const entries = state.entries.slice();
       entries.push(action.payload);

@@ -1,4 +1,4 @@
-import { browser, element, by, protractor } from 'protractor';
+import { browser, element, by } from 'protractor';
 
 describe('App test', () => {
   it('should have an add entries button', () => {
@@ -7,7 +7,7 @@ describe('App test', () => {
     browser.actions().mouseMove(actionButton).click().perform();
   });
 
-  it('entries button onClick should redirect to the income page with the value and description inputs', (done) => {
+  it('entries button onClick should redirect to the income page with the value and description inputs', () => {
     const ionInputDescriptionField = element(by.id(('incomeDescriptionField')));
     const descriptionField = ionInputDescriptionField.element(by.tagName('input'));
     const ionInputValueField = element(by.id(('incomeValueField')));
@@ -17,19 +17,19 @@ describe('App test', () => {
 
     valueField.sendKeys('100');
     sendKeys(descriptionField, 'Protractor is running some shady tests (income)');
-    browser.actions().mouseMove(submitBtn).click().perform().then(() => {
-      done();
-    });
+    browser.actions().mouseMove(submitBtn).click().perform();
   });
 
   it('on the income view, save changes button click should store the data as an income entry', (done) => {
     const lastIonCard = element(by.css('ion-card:last-of-type'));
     const ionCardBtn = lastIonCard.element(by.tagName('button'));
 
-    const html = lastIonCard.getText().then(text => {
-      expect(text).toContain('Protractor is running some shady tests (income)');
-      done();
-    });
+    setTimeout(() => {
+      const html = lastIonCard.getText().then(text => {
+        expect(text).toContain('Protractor is running some shady tests (income)');
+        done();
+      });
+    }, 100);
   });
 
   it('should go to the income page through the add entries button', (done) => {
@@ -41,17 +41,14 @@ describe('App test', () => {
   });
 
   it('should go to the expenses page through clicking the expenses tab', (done) => {
-    const EC = protractor.ExpectedConditions;
-    const expenseTabElement = element(by.css('a:last-of-type'));
+    const expenseTabElement = element.all(by.css('a')).last();
     setTimeout(() => {
-      expenseTabElement.getLocation().then((location) => {
-        expenseTabElement.click();
-        done();
-      });
+      browser.actions().mouseMove(expenseTabElement).click().perform();
+      done();
     }, 500);
   });
 
-  it('should fill in the value, description and save changes', (done) => {
+  it('should fill in the value, description and save changes', () => {
     const ionInputDescriptionField = element(by.id(('expenseDescriptionField')));
     const descriptionField = ionInputDescriptionField.element(by.tagName('input'));
     const ionInputValueField = element(by.id(('expenseValueField')));
@@ -61,9 +58,27 @@ describe('App test', () => {
 
     valueField.sendKeys('90');
     sendKeys(descriptionField, 'Protractor is running some shady tests (expense)');
-    browser.actions().mouseMove(submitBtn).click().perform().then(() => {
+    browser.actions().mouseMove(submitBtn).click().perform();
+  });
+
+  it('should navigate to the settings tab', (done) => {
+    const ionTabsElement = element.all(by.tagName('ion-tabs')).last();
+    const settingsElement = ionTabsElement.all(by.css('a')).last();
+    setTimeout(() => {
+      browser.actions().mouseMove(settingsElement).click().perform();
       done();
-    });
+    }, 500);
+  });
+
+  it('should wipe all data when remove button is clicked', (done) => {
+    const ionTabsElement = element.all(by.tagName('ion-tabs')).last();
+    const homeElement = ionTabsElement.all(by.css('a')).first();
+    const removeStoredDataBtn = element(by.id('removeStoredData'));
+    browser.actions().mouseMove(removeStoredDataBtn).click().perform();
+    setTimeout(() => {
+      browser.actions().mouseMove(homeElement).click().perform();
+      done();
+    }, 500);
   });
 
   afterAll(() => {

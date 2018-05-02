@@ -2,7 +2,8 @@
   <ion-navbar>
     <ion-title>
       <ion-icon (click)="getToRoot()" ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon>
-      Add entries: <span style="color: #488aff">Income</span>
+      Add entries:
+      <span style="color: #488aff">Income</span>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -11,11 +12,11 @@
   <form (ngSubmit)="submitChanges(form.value)" #form="ngForm">
     <ion-item>
       <ion-label>Value</ion-label>
-      <ion-input id="incomeValueField" type="number" name="value" ngModel required></ion-input>
+      <ion-input id="incomeValueField" type="number" name="value" [(ngModel)]="entry.value" required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Description</ion-label>
-      <ion-input id="incomeDescriptionField" type="text" name="description" ngModel required></ion-input>
+      <ion-input id="incomeDescriptionField" type="text" name="description" [(ngModel)]="entry.description" required></ion-input>
     </ion-item>
     <br>
     <button ion-button block type="submit" [disabled]="!form.valid">Save changes</button>

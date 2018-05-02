@@ -1,5 +1,9 @@
 export interface IEntry {
   /**
+   * Stores the id for an entry
+  */
+  id: string;
+  /**
    * Represents the numeric value of the entry
    */
   value: string;

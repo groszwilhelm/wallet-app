@@ -6,6 +6,8 @@ import { EntriesComponent } from '../entries/entries.component';
 import { IEntry } from '../../interfaces/entry.interface';
 import { State } from '../../app/app.module';
 import { GetEntries } from '../entries/entries.actions';
+import { IncomeComponent } from '../entries/income/income.component';
+import { ExpenseComponent } from '../entries/expense/expense.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,11 +25,10 @@ export class DashboardComponent {
       this.state = state;
       this.entries = state.entries;
     });
-    this.store.dispatch(new GetEntries());
   }
 
   ionViewWillEnter() {
-
+    this.store.dispatch(new GetEntries());
   }
 
   public goToAddEntries(): void {
@@ -35,6 +36,15 @@ export class DashboardComponent {
   }
 
   handleClick(entry: IEntry) {
-    console.log(entry);
+    if (entry.type === 'income') {
+      this.navCtrl.push(IncomeComponent, {
+        entry
+      });
+    } else
+    if (entry.type === 'expense') {
+      this.navCtrl.push(ExpenseComponent, {
+        entry
+      });
+    }
   }
 }

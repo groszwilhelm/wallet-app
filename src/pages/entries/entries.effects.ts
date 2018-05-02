@@ -12,7 +12,9 @@ import {
   EXPENSE,
   Expense,
   REMOVE_ENTRIES,
-  RemoveEntries
+  RemoveEntries,
+  UPDATE_ENTRIES,
+  UpdateEntries
 } from './entries.actions';
 import { EntriesService } from '../../services/entries.service';
 import { IEntry } from '../../interfaces/entry.interface';
@@ -47,6 +49,19 @@ export class EntriesEffects {
         console.log('[EntriesEffects] add expense');
         this.entriesService.setEntry(action.payload);
       }));
+
+  @Effect({dispatch: false}) update$: Observable<Action> = this.actions$.ofType(UPDATE_ENTRIES)
+    .pipe(
+      tap((action: UpdateEntries) => {
+        console.log('[EntriesEffects] update entries');
+      }),
+      switchMap((action: UpdateEntries) => {
+        return this.entriesService.update(action.payload)
+          .then(() => {
+            return new GetEntries();
+          });
+      }));
+
 
   @Effect() removeEntries$: Observable<Action> = this.actions$.ofType(REMOVE_ENTRIES)
     .pipe(

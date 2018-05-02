@@ -20,15 +20,16 @@ const initialState: State = {
 export function reducer(state = initialState, action: EntriesAction.All) {
   switch (action.type) {
     case EntriesAction.GET_ENTRIES_SUCCESS: {
+      if (!action.payload) {return; }
       let entries = state.entries.slice();
-      let totalIncome = 0;
-      let totalExpenses = 0;
+      let totalIncome = '0';
+      let totalExpenses = '0';
       action.payload.map((entry) => {
         if (entry.type === 'income') {
-          totalIncome = +totalIncome + +entry.value;
+          totalIncome = (+totalIncome + +entry.value).toFixed(2);
         }
         if (entry.type === 'expense') {
-          totalExpenses = +totalExpenses + +entry.value;
+          totalExpenses = (+totalExpenses + +entry.value).toFixed(2);
         }
       });
       entries = action.payload;
@@ -37,7 +38,7 @@ export function reducer(state = initialState, action: EntriesAction.All) {
         entries: entries,
         totalIncome: totalIncome,
         totalExpenses: totalExpenses,
-        balance: (totalIncome - totalExpenses)
+        balance: (+totalIncome - +totalExpenses).toFixed(2)
       };
     }
     case EntriesAction.INCOME: {
@@ -45,8 +46,8 @@ export function reducer(state = initialState, action: EntriesAction.All) {
       entries.push(action.payload);
       return {
         ...state,
-        totalIncome: (state.totalIncome + +action.payload.value).toFixed(2),
-        balance: (state.balance + +action.payload.value).toFixed(2),
+        totalIncome: (+state.totalIncome + +action.payload.value).toFixed(2),
+        balance: (+state.balance + +action.payload.value).toFixed(2),
         entries: entries
       };
     }
@@ -55,8 +56,8 @@ export function reducer(state = initialState, action: EntriesAction.All) {
       entries.push(action.payload);
       return {
         ...state,
-        totalExpenses: (state.totalExpenses + +action.payload.value).toFixed(2),
-        balance: (state.totalIncome - (state.totalExpenses + +action.payload.value)).toFixed(2),
+        totalExpenses: (+state.totalExpenses + +action.payload.value).toFixed(2),
+        balance: (+state.totalIncome - (+state.totalExpenses + +action.payload.value)).toFixed(2),
         entries: entries
       };
     }

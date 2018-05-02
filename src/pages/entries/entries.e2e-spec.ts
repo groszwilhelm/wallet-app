@@ -2,14 +2,14 @@ import { browser, element, by } from 'protractor';
 
 describe('App test', () => {
 
-  it('should have an add entries button', () => {
+  it('should have an add entries button and entries button onClick should redirect to the income page and', () => {
     browser.get('http://localhost:8100/');
     const actionButton = element(by.id('addEntriesBtn'));
     browser.actions().mouseMove(actionButton).click().perform();
     expect(actionButton).toBeTruthy();
   });
 
-  it('entries button onClick should redirect to the income page with the value and description inputs', async() => {
+  it('should fill the form with the value and description inputs', async() => {
     const ionInputDescriptionField = element(by.id(('incomeDescriptionField')));
     const descriptionField = ionInputDescriptionField.element(by.tagName('input'));
     const ionInputValueField = element(by.id(('incomeValueField')));
